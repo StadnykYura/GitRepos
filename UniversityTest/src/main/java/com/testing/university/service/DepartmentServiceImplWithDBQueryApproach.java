@@ -11,6 +11,8 @@ import com.testing.university.dao.impl.DepartmentDaoImpl;
 import com.testing.university.dto.DepartmentStatisticDTO;
 import com.testing.university.dto.LectorDTO;
 import com.testing.university.entity.Department;
+import com.testing.university.util.ScannerUtil;
+import com.testing.university.util.SchemaStrings;
 
 public class DepartmentServiceImplWithDBQueryApproach implements DepartmentService{
     
@@ -62,7 +64,7 @@ public class DepartmentServiceImplWithDBQueryApproach implements DepartmentServi
         int command = 0;
         do{
             System.out.println("You can write down integer numbers from range 1 to " + departments.size() + "(including)");
-            command = inputNum();
+            command = ScannerUtil.getInt();
         } while (!(command > 0 && command <= departments.size())); 
         
         i = 0;
@@ -126,7 +128,7 @@ public class DepartmentServiceImplWithDBQueryApproach implements DepartmentServi
         
         List <LectorDTO> filteredList = lectorDTO.stream().distinct().collect(Collectors.toList());
         if (filteredList.size()==0){
-            result = result.append("Nothing was found in DB");
+            result = result.append(SchemaStrings.NOTHING_WAS_FOUND_IN_DB);
             return result.toString();
         }
         for (int i = 0; i < filteredList.size(); i++) {
@@ -140,23 +142,7 @@ public class DepartmentServiceImplWithDBQueryApproach implements DepartmentServi
         return result.toString();
     }
 
-    private int inputNum(){
-        Scanner sc = new Scanner(System.in);
-        int number = 0;
-        try{
-            number = sc.nextInt();
-            if (number < 1 || number > Integer.MAX_VALUE){
-                throw new Exception();
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("You wrote not a number");
-            return 0;
-        } catch (Exception e){
-            System.out.println("You wrote wrong number or not a number ");
-            return 0;
-        }
-        return number;
-    }
+    
 
     
 }

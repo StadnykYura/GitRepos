@@ -9,10 +9,5 @@ public class UniversityDaoImpl extends GenericDaoImpl<University, Long> implemen
         super(University.class);
     }
 
-    @Override
-    public University globalSearch(String template) {
-        
-        return null;
-    }
 
 }
